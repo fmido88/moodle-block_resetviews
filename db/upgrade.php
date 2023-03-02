@@ -15,35 +15,29 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin capabilities are defined here.
+ * Plugin upgrade steps are defined here.
  *
  * @package     block_resetviews
- * @category    access
+ * @category    upgrade
  * @copyright   2023 Mohammad Farouk <phun.for.physics@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+/**
+ * Execute block_resetviews upgrade from the given old version.
+ *
+ * @param int $oldversion
+ * @return bool
+ */
+function xmldb_block_resetviews_upgrade($oldversion) {
+    global $DB;
 
-$capabilities = array (
-    'block/resetviews:addinstance' => array(
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW,
-            'teacher' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-        ),
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-        ),
-    'block/resetviews:view' => [
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => [
-            'manager' => CAP_ALLOW,
-            'teacher' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-        ],
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-    ],
-);
+    $dbman = $DB->get_manager();
+
+    // For further information please read {@link https://docs.moodle.org/dev/Upgrade_API}.
+    //
+    // You will also have to create the db/install.xml file by using the XMLDB Editor.
+    // Documentation for the XMLDB Editor can be found at {@link https://docs.moodle.org/dev/XMLDB_editor}.
+
+    return true;
+}

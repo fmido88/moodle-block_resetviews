@@ -15,35 +15,18 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin capabilities are defined here.
+ * Code to be executed after the plugin's database scheme has been installed is defined here.
  *
  * @package     block_resetviews
- * @category    access
+ * @category    upgrade
  * @copyright   2023 Mohammad Farouk <phun.for.physics@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+/**
+ * Custom code to be run on installing the plugin.
+ */
+function xmldb_block_resetviews_install() {
 
-$capabilities = array (
-    'block/resetviews:addinstance' => array(
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW,
-            'teacher' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-        ),
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-        ),
-    'block/resetviews:view' => [
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => [
-            'manager' => CAP_ALLOW,
-            'teacher' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-        ],
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-    ],
-);
+    return true;
+}

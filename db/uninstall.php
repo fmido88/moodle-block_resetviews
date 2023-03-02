@@ -15,35 +15,17 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Plugin capabilities are defined here.
+ * Code that is executed before the tables and data are dropped during the plugin uninstallation.
  *
  * @package     block_resetviews
- * @category    access
+ * @category    upgrade
  * @copyright   2023 Mohammad Farouk <phun.for.physics@gmail.com>
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-$capabilities = array (
-    'block/resetviews:addinstance' => array(
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_BLOCK,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW,
-            'teacher' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-        ),
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-        ),
-    'block/resetviews:view' => [
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => [
-            'manager' => CAP_ALLOW,
-            'teacher' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-        ],
-        'clonepermissionsfrom' => 'moodle/site:manageblocks'
-    ],
-);
+/**
+ * Custom uninstallation procedure.
+ */
+function xmldb_block_resetviews_uninstall() {
+    return true;
+}
