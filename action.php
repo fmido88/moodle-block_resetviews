@@ -18,7 +18,7 @@
 
 require_once('../../config.php');
 global $CFG;
-require($CFG->dirroot.'\blocks\resetviews\locallib.php');
+require(__DIR__.'\locallib.php');
 require_login();
 $cmid = $_POST['instanceid'];
 $userid = $_POST['user'];
