@@ -27,7 +27,7 @@
  *
  * @param object $event The event object.
  */
-function participation_print_filter_form($course, $instanceid) {
+function cm_print_filter_form($course, $instanceid) {
     global $DB;
 
     $modinfo = get_fast_modinfo($course);
@@ -54,8 +54,8 @@ function participation_print_filter_form($course, $instanceid) {
         $instanceoptions[] = array(get_string('modulenameplural', $module->name) => $instances);
     }
 
-    $form = "</br>".'<input type = "hidden" name = "id" value ="'.$course->id.'" />'."\n";
-    $form .= "<div>";
+    $form = '<input type = "hidden" name = "id" value ="'.$course->id.'" />'."\n";
+    $form .= "<div style=\"max-width:100%;\">";
     $form .= '<label for="menuinstanceid">'.get_string('activitymodule').'</label>'."\n";
     $form .= html_writer::select($instanceoptions, 'instanceid', $instanceid);
     $form .= '</br>';
@@ -73,7 +73,6 @@ function users_print_filter_form($course) {
         $instances[$user->id] = format_string($user->firstname."\n".$user->lastname);
     }
     $form = '<input type="hidden" name="id" value="'.$course->id.'" />'."\n";
-    $form .= "<div>";
     $form .= '<label for="menuuserid">'.'User'.'</label>'."\n";
     $form .= html_writer::select($instances, 'user', $user->id);
     $form .= '</br>';

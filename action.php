@@ -18,10 +18,14 @@
 
 require_once('../../config.php');
 global $CFG;
-require(__DIR__.'\locallib.php');
+require(__DIR__.'/locallib.php');
 require_login();
 $cmid = $_POST['instanceid'];
 $userid = $_POST['user'];
 $value = $_POST['value'];
-insertresetviews($cmid, $userid, $value, time());
-header('Location: ' . $_SERVER['HTTP_REFERER']);
+if ($cmid == null) {
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+} else {
+    insertresetviews($cmid, $userid, $value, time());
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+}

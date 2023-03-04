@@ -41,7 +41,7 @@ class block_resetviews extends block_base {
     public function get_content() {
         global $CFG, $COURSE, $DB, $USER;
 
-        require_once(__DIR__.'/locallib.php');
+        require_once($CFG->dirroot.'/blocks/resetviews/locallib.php');
 
         $this->content = new stdClass();
         if (!has_capability('block/resetviews:view', $this->context)) {
@@ -59,24 +59,50 @@ class block_resetviews extends block_base {
             $course = $DB->get_record('course', array('id' => $id));
             $modinfo = get_fast_modinfo($course);
 
-            $this->content->text = '<form class="resetviewsform form-inline" action="
-                '.$CFG->wwwroot.'\blocks\resetviews\action.php" method="post">';
+            $this->content->text = '<form class="resetviewsform form-inline" 
+            action="'.$CFG->wwwroot.'/blocks/resetviews/action.php" method="post">';
 
-            $cmselect = participation_print_filter_form($course, $instanceid);
-            $this->content->text .= '</br>'.$cmselect;
+            $cmselect = cm_print_filter_form($course, $instanceid);
+            $this->content->text .= $cmselect;           
 
             $usersselect = users_print_filter_form($course);
             $this->content->text .= $usersselect;
 
-            $input = '<input name="value" type="integer"/>';
+            $input = '<label for="value">'.'Value to add or subtract'.'</label>'."\n";
+            $input .= '<input class="viewsin" name="value" type="number" min="-10" max="10" value="2"/>'."\n";
             $this->content->text .= $input;
 
-            $submit = '<input type="submit" name = "ok" value="ok"/>';
+            $submit = '<input class="subviews" type="submit" name = "ok" value="ok"/>';
             $this->content->text .= $submit;
+            $this->content->text .= '<style>
+            input.viewsin {
+                border-radius: 17px;
+                text-align: center;
+                min-width: 100px;
+                font-size: larger;
+            }
+            .subviews {
+                border-radius: 15px;
+                min-width: 47px;
+                background-color: mediumslateblue;
+                font-weight: bold;
+                color: floralwhite;
+            }
+            select#menuinstanceid {
+                max-width: 90%;
+            }
+            select#menuuser {
+                max-width: 90%;
+            }
+            .form-inline label {
+                justify-content: flex-start !important;
+            }
+            </style>';  
 
             $text = '</br>Select users to reset its views';
 
             $this->content->text .= $text;
+            $this->content->text .= '</div>';
             $this->content->text .= '</form>';
 
             return $this->content;
