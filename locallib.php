@@ -71,7 +71,7 @@ function users_print_filter_form($course) {
     $users = get_enrolled_users($context, "", 0, "u.*", 'firstname', 0, 0, true);
 
     foreach ($users as $user) {
-        // TODO Show only students in this course.
+        // TODO Show only users with student role in this course.
 
         $userselect[$user->id] = format_string($user->firstname."\n".$user->lastname);
 
