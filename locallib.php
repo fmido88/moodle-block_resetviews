@@ -43,6 +43,7 @@ function cm_print_filter_form($course, $instanceid) {
         foreach ($modinfo->instances[$module->name] as $cm) {
             // Skip modules such as label which do not actually have links;
             // this means there's nothing to participate in.
+            // TODO filter course modules by that only has maxviews conditions.
             if (!$cm->has_view()) {
                 continue;
             }
@@ -57,7 +58,7 @@ function cm_print_filter_form($course, $instanceid) {
     $form = '<input type = "hidden" name = "id" value ="'.$course->id.'" />'."\n";
     $form .= "<div style=\"max-width:100%;\">";
     $form .= '<label for="menuinstanceid">'.get_string('activitymodule').'</label>'."\n";
-    $form .= html_writer::select($instanceoptions, 'instanceid', $instanceid);
+    $form .= html_writer::select($instanceoptions, 'instanceid', $instanceid, false);
     $form .= '</br>';
 
     return $form;
@@ -67,14 +68,17 @@ function users_print_filter_form($course) {
 
     $context = context_course::instance($course->id);
 
-    $users = get_enrolled_users($context, "", 0, "u.*", null, 0, 0, false);
+    $users = get_enrolled_users($context, "", 0, "u.*", 'firstname', 0, 0, true);
 
     foreach ($users as $user) {
-        $instances[$user->id] = format_string($user->firstname."\n".$user->lastname);
+        // TODO Show only students in this course.
+
+        $userselect[$user->id] = format_string($user->firstname."\n".$user->lastname);
+
     }
     $form = '<input type="hidden" name="id" value="'.$course->id.'" />'."\n";
     $form .= '<label for="menuuserid">'.'User'.'</label>'."\n";
-    $form .= html_writer::select($instances, 'user', $user->id);
+    $form .= html_writer::select($userselect, 'user', $user->id, false);
     $form .= '</br>';
 
     return $form;
