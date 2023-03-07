@@ -116,7 +116,7 @@ class block_resetviews extends block_base {
                 $this->content->text .= '</form>';
 
                 return $this->content;
-                }
+            }
         } else {
             return $this->content;
         }
