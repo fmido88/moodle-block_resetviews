@@ -22,10 +22,12 @@
  * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/**
- * Handle the reset views event.
+/** Creates a select menu of course module in the course
  *
- * @param object $event The event object.
+ * @param object $course geting the course id from it
+ * @param int $instanceid instance id
+ *
+ * @return string html writer select menue
  */
 function cm_print_filter_form($course, $instanceid) {
     global $DB;
@@ -63,6 +65,11 @@ function cm_print_filter_form($course, $instanceid) {
 
     return $form;
 }
+/** Print the select list of active users in the course
+ * @param object $course getting the course id from it
+ *
+ * @return string html write the select menu of users
+ */
 function users_print_filter_form($course) {
     global $DB, $USER;
 
@@ -86,7 +93,14 @@ function users_print_filter_form($course) {
 
     return $form;
 }
-
+/** The function responsible for iserting the value added in the database
+ * @param int $cmid course module id
+ * @param int $userid user id
+ * @param int $value the value added to increase or decrease the view limit
+ * @param int $time the current time of modification
+ *
+ * @return stdclass
+ */
 function insertresetviews($cmid, $userid, $value, $time) {
     global $DB;
 
@@ -108,6 +122,14 @@ function insertresetviews($cmid, $userid, $value, $time) {
     }
 }
 
+/** This function is used by the plugin availability_maxviews to modify the limitation
+ * for certain user, it read the value inserted before in the database an add it the limit.
+ *
+ * @param int $cmid course module id
+ * @param int $userid user id
+ *
+ * @return int return the value to be added to the limit
+ */
 function resetviews($cmid, $userid) {
     global $DB;
     $views = $DB->get_field('block_resetviews', 'value', array('cmid' => $cmid, 'userid' => $userid), IGNORE_MISSING);

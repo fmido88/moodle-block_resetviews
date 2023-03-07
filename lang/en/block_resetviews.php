@@ -14,19 +14,19 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
-require_once('../../config.php');
-require(__DIR__.'/locallib.php');
-global $CFG;
+/**
+ * Plugin strings are defined here.
+ *
+ * @package     block_resetviews
+ * @category    string
+ * @copyright   2023 Mohammad Farouk <phun.for.physics@gmail.com>
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
-require_login();
+defined('MOODLE_INTERNAL') || die();
 
-$cmid = $_POST['instanceid'];
-$userid = $_POST['user'];
-$value = $_POST['value'];
-
-if ($cmid == null) {
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
-} else {
-    insertresetviews($cmid, $userid, $value, time());
-    header('Location: ' . $_SERVER['HTTP_REFERER']);
-}
+$string['pluginname'] = 'reset module views';
+$string['resetviews:canresetviews'] = 'can reset views';
+$string['userfullname'] = 'user';
+$string['resetviews:addinstance'] = 'can add block';
+$string['resetviews:view'] = 'can view the block';

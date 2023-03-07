@@ -30,9 +30,16 @@ class block_resetviews extends block_base {
         // Needed by Moodle to differentiate between blocks.
         $this->title = get_string('pluginname', 'block_resetviews');
     }
+
+    /** Are you going to allow multiple instances of each block?
+     * If yes, then it is assumed that the block WILL USE per-instance configuration
+     *
+     * @return bool
+     */
     public function instance_allow_multiple() {
         return false;
     }
+
     /**
      * Returns the block contents.
      *
@@ -58,15 +65,15 @@ class block_resetviews extends block_base {
             $course = $DB->get_record('course', array('id' => $id));
             if ($course == null) {
                 return $this->content;
-                } else {
-                
+            } else {
+
                 $modinfo = get_fast_modinfo($course);
 
-                $this->content->text = '<form class="resetviewsform form-inline" 
+                $this->content->text = '<form class="resetviewsform form-inline"
                 action="'.$CFG->wwwroot.'/blocks/resetviews/action.php" method="post">';
 
                 $cmselect = cm_print_filter_form($course, $instanceid);
-                $this->content->text .= $cmselect;           
+                $this->content->text .= $cmselect;
 
                 $usersselect = users_print_filter_form($course);
                 $this->content->text .= $usersselect;
@@ -100,7 +107,7 @@ class block_resetviews extends block_base {
                 .form-inline label {
                     justify-content: flex-start !important;
                 }
-                </style>';  
+                </style>';
 
                 $text = '</br>Select users to reset its views';
 
@@ -109,7 +116,7 @@ class block_resetviews extends block_base {
                 $this->content->text .= '</form>';
 
                 return $this->content;
-            }
+                }
         } else {
             return $this->content;
         }
